@@ -1,0 +1,73 @@
+{
+  "name": "vscode-exact-file-preview",
+  "displayName": "Exact File Preview",
+  "description": "Preview the exact selected file (HTML/SVG/MD/TXT/JSON/XML) in a sandboxed side panel — no server, no framework guessing.",
+  "version": "0.1.0",
+  "publisher": "toris-tree",
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.75.0"
+  },
+  "categories": [
+    "Visualization",
+    "Other"
+  ],
+  "keywords": [
+    "preview",
+    "html",
+    "svg",
+    "markdown",
+    "no server"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/toris-tree/vscode-exact-file-preview.git"
+  },
+  "bugs": {
+    "url": "https://github.com/toris-tree/vscode-exact-file-preview/issues"
+  },
+  "homepage": "https://github.com/toris-tree/vscode-exact-file-preview#readme",
+  "main": "./src/extension.js",
+  "activationEvents": [
+    "onCommand:exactFilePreview.openPreview"
+  ],
+  "contributes": {
+    "commands": [
+      {
+        "command": "exactFilePreview.openPreview",
+        "title": "Exact File Preview: Open Preview",
+        "category": "Exact File Preview"
+      }
+    ],
+    "menus": {
+      "commandPalette": [
+        { "command": "exactFilePreview.openPreview" }
+      ],
+      "explorer/context": [
+        {
+          "command": "exactFilePreview.openPreview",
+          "when": "resourceExtname =~ /\\.(html|svg|md|txt|json|xml)$/i",
+          "group": "navigation@90"
+        }
+      ],
+      "editor/context": [
+        {
+          "command": "exactFilePreview.openPreview",
+          "when": "resourceExtname =~ /\\.(html|svg|md|txt|json|xml)$/i",
+          "group": "navigation@90"
+        }
+      ],
+      "editor/title": [
+        {
+          "command": "exactFilePreview.openPreview",
+          "when": "resourceExtname =~ /\\.(html|svg|md|txt|json|xml)$/i",
+          "group": "navigation"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "test": "node --test tests/*.test.js",
+    "check": "node --check src/preview-core.js && node --check src/extension.js"
+  }
+}

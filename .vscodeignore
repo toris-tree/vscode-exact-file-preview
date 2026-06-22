@@ -1,0 +1,8 @@
+# Files excluded from the packaged .vsix
+tests/**
+**/*.test.js
+dist/**
+.vscode/**
+.gitignore
+.vscodeignore
+.git/**

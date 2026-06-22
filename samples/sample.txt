@@ -1,0 +1,6 @@
+Plain text sample.
+
+Exact File Preview shows text files exactly as-is, with HTML-special
+characters escaped: < > & " ' so nothing is interpreted as markup.
+
+Line 3.

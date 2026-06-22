@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Sample HTML</title>
+  <style>
+    body { font-family: sans-serif; padding: 24px; }
+    .card { border: 2px solid #0969da; border-radius: 8px; padding: 16px; max-width: 420px; }
+    h1 { color: #0969da; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1 id="headline">Hello from sample.html</h1>
+    <p>This HTML is rendered exactly as written, inside a sandboxed frame.</p>
+    <p>If you can read this with the blue border, CSS rendered correctly.</p>
+  </div>
+  <!-- This script must NOT run in the preview (sandbox blocks it). -->
+  <script>
+    document.title = 'SCRIPT-EXECUTED';
+    document.body.style.background = 'red';
+    window.__efp_script_ran = true;
+  </script>
+</body>
+</html>

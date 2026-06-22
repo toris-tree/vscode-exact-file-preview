@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="240" height="160" viewBox="0 0 240 160" role="img" aria-label="Sample SVG">
+  <rect x="0" y="0" width="240" height="160" rx="12" fill="#0969da"/>
+  <circle cx="120" cy="70" r="42" fill="#ffffff"/>
+  <text x="120" y="135" text-anchor="middle" font-family="sans-serif" font-size="18" fill="#ffffff">Sample SVG</text>
+  <!-- This script must NOT run when previewed as an image. -->
+  <script type="text/javascript">window.__efp_svg_script_ran = true;</script>
+</svg>
