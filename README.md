@@ -1,65 +1,92 @@
-# Exact File Preview
+# VS Code Exact File Preview
 
-Preview the exact selected file in VS Code without starting a server or guessing your framework.
+> Preview the exact selected file in VS Code — no server, no framework guessing, no setup.
 
-A tiny, free VS Code extension. It opens the currently selected file in a
-sandboxed side panel and shows it **exactly as it is** — no Live Server, no
-framework detection, no URL rewriting, no routing assumptions, no project setup.
+A tiny, free VS Code extension. Open any HTML, SVG, Markdown, JSON, XML, or text file
+and see it exactly as it is in a sandboxed side panel. Works before your project toolchain
+is set up. No Live Server required.
 
-Status: packaged beta. Automated tests pass (`npm test`) and every preview type
-was verified by rendering the exact webview output in a real Chromium browser,
-confirming HTML/SVG render correctly and that embedded scripts do **not** execute.
+**[⬇ Download .vsix](https://github.com/toris-tree/vscode-exact-file-preview/releases/latest)**
+· [Report a bug](https://github.com/toris-tree/vscode-exact-file-preview/issues/new?labels=bug&template=bug.md)
+· [Request a feature](https://github.com/toris-tree/vscode-exact-file-preview/issues/new?labels=enhancement)
+
+---
+
+## Quick start
+
+1. [Download the `.vsix`](https://github.com/toris-tree/vscode-exact-file-preview/releases/latest) from the latest release.
+2. In VS Code: **Extensions** → `...` menu → **Install from VSIX…**  
+   *(or: `code --install-extension vscode-exact-file-preview-0.1.0.vsix`)*
+3. Open any supported file and run **Exact File Preview: Open Preview** from the Command Palette.
+
+That's it. No account, no config, no server to start.
+
+---
+
+## Why not Live Server?
+
+| | Exact File Preview | Live Server |
+|---|---|---|
+| Requires project setup | No | Often (routing, config) |
+| Starts a local server | No | Yes (port 5500 by default) |
+| Previews the exact file | Yes | Maybe (URL routing can differ) |
+| Works before toolchain exists | Yes | Depends |
+| Executes scripts in previewed file | No (sandboxed) | Yes |
+| Framework assumptions | None | None by default |
+
+Use this extension when you want to **see exactly what the file contains**, not what a
+dev server decides to serve.
+
+---
 
 ## What it does
 
-- Adds one command: **Exact File Preview: Open Preview**.
-- Run it from the Command Palette, the editor title bar, or the right-click menu
-  in the editor / file explorer (for supported files).
-- Opens a preview beside your editor with a banner: `LOCAL EXACT PREVIEW · <file name>`.
+- Adds one command: **Exact File Preview: Open Preview**
+- Available from the Command Palette, editor title bar, or right-click menu in the
+  editor and file explorer
+- Opens a preview panel beside the editor with a banner: `LOCAL EXACT PREVIEW · <filename>`
 
-## Supported file types (beta)
+## Supported file types
 
-| Extension | Rendered as                                              |
-| --------- | ------------------------------------------------------- |
-| `.html`   | the page itself, in a fully sandboxed `<iframe>` (no JS) |
-| `.svg`    | the image, via a `data:` `<img>` (no JS)                |
-| `.md`     | a basic, safe Markdown render                           |
-| `.json`   | pretty-printed, escaped text                            |
-| `.xml`    | escaped text                                            |
-| `.txt`    | escaped text                                            |
+| Extension | Rendered as |
+|-----------|-------------|
+| `.html` | the page itself, in a fully sandboxed `<iframe>` (scripts blocked) |
+| `.svg` | the image, via a `data:` `<img>` (scripts blocked) |
+| `.md` | a basic, safe Markdown render |
+| `.json` | pretty-printed, escaped text |
+| `.xml` | escaped text |
+| `.txt` | escaped text |
 
 Any other file type shows a clear **"Unsupported file type"** message.
+Files over 2 MB are refused with a readable error instead of freezing the panel.
 
 ## Safety model
 
-- **No server.** Nothing is started or listened on.
-- **No network.** The webview's Content-Security-Policy is `default-src 'none'`;
-  only inline styles, `data:` images, and `data:` frames are allowed.
-- **No code execution.** HTML and SVG are isolated in a `sandbox=""` iframe / an
-  `<img>`, so scripts in the previewed file never run. The webview itself has
-  scripting disabled.
-- **No file mutation.** Files are read-only; nothing is ever written back.
-- **Large files** (over 2 MB) are refused with a readable message instead of
-  freezing the preview.
+- **No server.** Nothing starts, nothing listens on a port.
+- **No network.** CSP is `default-src 'none'`; only inline styles and `data:` URIs allowed.
+- **No script execution.** HTML/SVG are isolated in `sandbox=""` iframe / `<img>`, so
+  scripts in the previewed file never run.
+- **No file mutation.** All file I/O is read-only.
 
-## Install (beta)
+Verified: every preview type was rendered in a real Chromium browser; embedded scripts
+confirmed NOT to execute.
 
-From the `.vsix`:
-
-1. Download `vscode-exact-file-preview-0.1.0.vsix` from the release.
-2. In VS Code: **Extensions** view → `...` menu → **Install from VSIX…**, or run
-   `code --install-extension vscode-exact-file-preview-0.1.0.vsix`.
-3. Open a supported file and run **Exact File Preview: Open Preview**.
+---
 
 ## Privacy
 
-Runs entirely on-device. No account, no telemetry, no network. See
-[PRIVACY.md](PRIVACY.md).
+Runs entirely on-device. No account, no telemetry, no network calls. See [PRIVACY.md](PRIVACY.md).
 
-## Report a bug
+---
 
-Please include your VS Code version, OS, the file type, and what you saw vs. what
-you expected.
+## Get involved
+
+- **Found a bug?** [Open an issue](https://github.com/toris-tree/vscode-exact-file-preview/issues/new?labels=bug) — include VS Code version, OS, file type, and what you expected vs. what happened.
+- **Want a feature?** [Open a feature request](https://github.com/toris-tree/vscode-exact-file-preview/issues/new?labels=enhancement) — especially if you need support for additional file types or custom rendering behavior.
+- **Need a custom build or enterprise use?** [Open an issue labelled `commercial`](https://github.com/toris-tree/vscode-exact-file-preview/issues/new?labels=commercial&title=Custom+build+inquiry) and describe your use case.
+- **If this saved you time**, a ⭐ on the repo helps others discover it.
+
+---
 
 ## Development
 
@@ -67,3 +94,6 @@ you expected.
 npm test       # core + command-flow tests
 npm run check  # syntax check
 ```
+
+Status: packaged beta. Automated tests pass and every preview type was verified by rendering
+the exact webview HTML in a real Chromium browser.
