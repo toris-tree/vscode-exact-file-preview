@@ -6,7 +6,10 @@ A tiny, free VS Code extension. Open any HTML, SVG, Markdown, JSON, XML, or text
 and see it exactly as it is in a sandboxed side panel. Works before your project toolchain
 is set up. No Live Server required.
 
-**[⬇ Download .vsix](https://github.com/toris-tree/vscode-exact-file-preview/releases/latest)**
+[![VS Code Marketplace](https://img.shields.io/visual-studio-marketplace/v/toris-tree.vscode-exact-file-preview?label=VS%20Code%20Marketplace&color=0ea5e9)](https://marketplace.visualstudio.com/items?itemName=toris-tree.vscode-exact-file-preview)
+[![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
+
+**[📦 Install from VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=toris-tree.vscode-exact-file-preview)**
 · [Report a bug](https://github.com/toris-tree/vscode-exact-file-preview/issues/new?labels=bug&template=bug.md)
 · [Request a feature](https://github.com/toris-tree/vscode-exact-file-preview/issues/new?labels=enhancement)
 
@@ -14,12 +17,22 @@ is set up. No Live Server required.
 
 ## Quick start
 
-1. [Download the `.vsix`](https://github.com/toris-tree/vscode-exact-file-preview/releases/latest) from the latest release.
-2. In VS Code: **Extensions** → `...` menu → **Install from VSIX…**  
-   *(or: `code --install-extension vscode-exact-file-preview-0.1.0.vsix`)*
-3. Open any supported file and run **Exact File Preview: Open Preview** from the Command Palette.
+**Option A — one click (recommended):**
 
-That's it. No account, no config, no server to start.
+1. Open VS Code → press `Ctrl+P` → paste:
+   ```
+   ext install toris-tree.vscode-exact-file-preview
+   ```
+   Or [open the Marketplace page](https://marketplace.visualstudio.com/items?itemName=toris-tree.vscode-exact-file-preview) and click **Install**.
+
+**Option B — manual `.vsix`:**
+
+1. [Download the `.vsix`](https://github.com/toris-tree/vscode-exact-file-preview/releases/latest) from the latest release.
+2. In VS Code: **Extensions** → `...` menu → **Install from VSIX…**
+
+Then open any supported file and run **Exact File Preview: Open Preview** from the Command Palette.
+
+No account, no config, no server to start.
 
 ---
 
