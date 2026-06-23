@@ -7,9 +7,11 @@ and see it exactly as it is in a sandboxed side panel. Works before your project
 is set up. No Live Server required.
 
 [![VS Code Marketplace](https://img.shields.io/visual-studio-marketplace/v/toris-tree.vscode-exact-file-preview?label=VS%20Code%20Marketplace&color=0ea5e9)](https://marketplace.visualstudio.com/items?itemName=toris-tree.vscode-exact-file-preview)
+[![Open VSX](https://img.shields.io/open-vsx/v/toris-tree/vscode-exact-file-preview?label=Open%20VSX&color=a78bfa)](https://open-vsx.org/extension/toris-tree/vscode-exact-file-preview)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 
 **[📦 Install from VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=toris-tree.vscode-exact-file-preview)**
+· **[📦 Install from Open VSX](https://open-vsx.org/extension/toris-tree/vscode-exact-file-preview)**
 · [Report a bug](https://github.com/toris-tree/vscode-exact-file-preview/issues/new?labels=bug&template=bug.md)
 · [Request a feature](https://github.com/toris-tree/vscode-exact-file-preview/issues/new?labels=enhancement)
 
@@ -25,7 +27,11 @@ is set up. No Live Server required.
    ```
    Or [open the Marketplace page](https://marketplace.visualstudio.com/items?itemName=toris-tree.vscode-exact-file-preview) and click **Install**.
 
-**Option B — manual `.vsix`:**
+**Option B — Open VSX (VSCodium, Gitpod, Theia):**
+
+Install from [Open VSX Registry](https://open-vsx.org/extension/toris-tree/vscode-exact-file-preview) — same extension, same version.
+
+**Option C — manual `.vsix`:**
 
 1. [Download the `.vsix`](https://github.com/toris-tree/vscode-exact-file-preview/releases/latest) from the latest release.
 2. In VS Code: **Extensions** → `...` menu → **Install from VSIX…**
