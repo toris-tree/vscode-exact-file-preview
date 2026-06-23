@@ -29,7 +29,11 @@ is set up. No Live Server required.
    ```
    Or [open the Marketplace page](https://marketplace.visualstudio.com/items?itemName=toris-tree.vscode-exact-file-preview) and click **Install**.
 
-**Option B — manual `.vsix`:**
+**Option B — Open VSX (VSCodium, Gitpod, Theia):**
+
+Install from [Open VSX Registry](https://open-vsx.org/extension/toris-tree/vscode-exact-file-preview) — same extension, same version.
+
+**Option C — manual `.vsix`:**
 
 1. [Download the `.vsix`](https://github.com/toris-tree/vscode-exact-file-preview/releases/latest) from the latest release.
 2. In VS Code: **Extensions** → `...` menu → **Install from VSIX…**
