@@ -2,7 +2,7 @@
   "name": "vscode-exact-file-preview",
   "displayName": "Exact File Preview",
   "description": "Preview the exact selected file (HTML/SVG/MD/TXT/JSON/XML) in a sandboxed side panel — no server, no framework guessing.",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "publisher": "toris-tree",
   "license": "MIT",
   "engines": {

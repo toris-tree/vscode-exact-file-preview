@@ -13,6 +13,41 @@ const fs = require('fs');
 const path = require('path');
 const core = require('./preview-core');
 
+// ---- one-time first-use feedback prompt ------------------------------------
+
+var FEEDBACK_KEY = 'exactFilePreview.feedbackShown';
+var FEEDBACK_DELAY_MS = 2000;
+
+var FEEDBACK_MSG = 'Exact File Preview: saved you time? ⭐ Star the repo or share what file type you use.';
+var FEEDBACK_STAR = 'Star on GitHub';
+var FEEDBACK_SHARE = 'Share file type';
+var REPO_URL = 'https://github.com/toris-tree/vscode-exact-file-preview';
+var FEEDBACK_ISSUE_URL = REPO_URL + '/issues/new?labels=feedback&title=Feedback%3A+what+I+use+this+for' +
+  '&body=I+use+Exact+File+Preview+for%3A%0A%0A(describe+your+workflow+or+file+type+here)';
+
+function _showFeedbackPromptNow() {
+  if (!vscode.window || typeof vscode.window.showInformationMessage !== 'function') {
+    return Promise.resolve();
+  }
+  return vscode.window.showInformationMessage(FEEDBACK_MSG, FEEDBACK_STAR, FEEDBACK_SHARE)
+    .then(function (sel) {
+      if (!vscode.env || !vscode.env.openExternal || !vscode.Uri || !vscode.Uri.parse) return;
+      if (sel === FEEDBACK_STAR) {
+        vscode.env.openExternal(vscode.Uri.parse(REPO_URL));
+      } else if (sel === FEEDBACK_SHARE) {
+        vscode.env.openExternal(vscode.Uri.parse(FEEDBACK_ISSUE_URL));
+      }
+    });
+}
+
+function _maybeScheduleFeedback(context, panel) {
+  if (!panel) return;
+  if (!context || !context.globalState) return;
+  if (context.globalState.get(FEEDBACK_KEY)) return;
+  context.globalState.update(FEEDBACK_KEY, true);
+  setTimeout(_showFeedbackPromptNow, FEEDBACK_DELAY_MS);
+}
+
 function resolveTarget(arg) {
   // From the explorer/editor context menu we get a Uri; from the palette we
   // fall back to the active editor's document.
@@ -70,10 +105,20 @@ function openPreview(arg) {
 
 function activate(context) {
   context.subscriptions.push(
-    vscode.commands.registerCommand('exactFilePreview.openPreview', openPreview)
+    vscode.commands.registerCommand('exactFilePreview.openPreview', function (arg) {
+      var panel = openPreview(arg);
+      _maybeScheduleFeedback(context, panel);
+    })
   );
 }
 
 function deactivate() {}
 
-module.exports = { activate: activate, deactivate: deactivate, openPreview: openPreview };
+module.exports = {
+  activate: activate,
+  deactivate: deactivate,
+  openPreview: openPreview,
+  _maybeScheduleFeedback: _maybeScheduleFeedback,
+  _showFeedbackPromptNow: _showFeedbackPromptNow,
+  FEEDBACK_KEY: FEEDBACK_KEY,
+};
