@@ -62,7 +62,10 @@ dev server decides to serve.
 
 ## What it does
 
-- Adds one command: **Exact File Preview: Open Preview**
+- Adds the preview command: **Exact File Preview: Open Preview**
+- Adds two feedback commands:
+  **Exact File Preview: Request File Type Support** and
+  **Exact File Preview: Request Workflow Adaptation**
 - Available from the Command Palette, editor title bar, or right-click menu in the
   editor and file explorer
 - Opens a preview panel beside the editor with a banner: `LOCAL EXACT PREVIEW · <filename>`
@@ -103,8 +106,8 @@ Runs entirely on-device. No account, no telemetry, no network calls. See [PRIVAC
 ## Get involved
 
 - **Found a bug?** [Open an issue](https://github.com/toris-tree/vscode-exact-file-preview/issues/new?labels=bug) — include VS Code version, OS, file type, and what you expected vs. what happened.
-- **Want a feature?** [Open a feature request](https://github.com/toris-tree/vscode-exact-file-preview/issues/new?labels=enhancement) — especially if you need support for additional file types or custom rendering behavior.
-- **Need a custom build or enterprise use?** [Open an issue labelled `commercial`](https://github.com/toris-tree/vscode-exact-file-preview/issues/new?labels=commercial&title=Custom+build+inquiry) and describe your use case.
+- **Need another file type?** Run **Exact File Preview: Request File Type Support** or [open a prefilled request](https://github.com/toris-tree/vscode-exact-file-preview/issues/new?labels=enhancement%2Cfile-type-support&title=File+type+support+request&body=File+extension+or+format%3A%0A%0AExample+file+or+public+spec+link%3A%0A%0AWhat+I+expected+to+preview%3A%0A%0AAnything+special+about+this+format%3A).
+- **Need this adapted for your workflow?** Run **Exact File Preview: Request Workflow Adaptation** or [open a prefilled request](https://github.com/toris-tree/vscode-exact-file-preview/issues/new?labels=commercial%2Cworkflow-adaptation&title=Workflow+adaptation+request&body=I%27d+like+to+adapt+Exact+File+Preview+for%3A%0A%0ATeam+or+workflow+size%3A%0A%0AFile+types+or+systems+involved%3A%0A%0AWhat+needs+to+change%3A%0A%0ATimeline+or+constraints%3A) — describe your file type, team size, or what behaviour you need changed.
 - **If this saved you time**, [⭐ star the repo](https://github.com/toris-tree/vscode-exact-file-preview) — it's the best way to help others discover it.
 
 ---

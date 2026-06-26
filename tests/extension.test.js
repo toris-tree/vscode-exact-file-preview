@@ -71,6 +71,8 @@ test('activate registers the openPreview command', () => {
   const ext = loadExtensionWith(vscode);
   ext.activate({ subscriptions: [] });
   assert.ok(typeof calls.commands['exactFilePreview.openPreview'] === 'function');
+  assert.ok(typeof calls.commands['exactFilePreview.requestFileTypeSupport'] === 'function');
+  assert.ok(typeof calls.commands['exactFilePreview.requestWorkflowAdaptation'] === 'function');
 });
 
 test('previewing a supported HTML file opens a sandboxed webview panel', () => {
@@ -149,6 +151,30 @@ test('_maybeScheduleFeedback is a no-op when panel is null (failed preview)', ()
   assert.strictEqual(ctx.globalState.get(ext.FEEDBACK_KEY), undefined);
 });
 
+test('registered openPreview command schedules first-use feedback after a real panel opens', () => {
+  const { vscode, calls } = makeVscode();
+  const ext = loadExtensionWith(vscode);
+  const ctx = makeContext();
+  const scheduled = [];
+  const origSetTimeout = global.setTimeout;
+
+  global.setTimeout = (fn, ms) => {
+    assert.strictEqual(typeof fn, 'function');
+    scheduled.push(ms);
+    return 1;
+  };
+  try {
+    ext.activate(ctx);
+    calls.commands['exactFilePreview.openPreview']({ fsPath: path.join(SAMPLES, 'sample.html') });
+  } finally {
+    global.setTimeout = origSetTimeout;
+  }
+
+  assert.strictEqual(calls.panels.length, 1);
+  assert.strictEqual(ctx.globalState.get(ext.FEEDBACK_KEY), true);
+  assert.deepStrictEqual(scheduled, [2000]);
+});
+
 test('_showFeedbackPromptNow opens repo URL when "Star on GitHub" is selected', async () => {
   const { vscode, calls } = makeVscode();
   vscode.window.showInformationMessage = (_msg, ...buttons) => {
@@ -162,15 +188,45 @@ test('_showFeedbackPromptNow opens repo URL when "Star on GitHub" is selected', 
   assert.ok(!calls.opened[0].includes('issues'), 'repo root URL, not issues URL');
 });
 
-test('_showFeedbackPromptNow opens feedback issue URL when "Share file type" is selected', async () => {
+test('_showFeedbackPromptNow opens file-type support issue URL when requested', async () => {
   const { vscode, calls } = makeVscode();
   vscode.window.showInformationMessage = (_msg, ...buttons) => {
     calls.infos.push({ buttons });
-    return Promise.resolve('Share file type');
+    return Promise.resolve('Request file type');
   };
   const ext = loadExtensionWith(vscode);
   await ext._showFeedbackPromptNow();
   assert.strictEqual(calls.opened.length, 1);
   assert.match(calls.opened[0], /issues\/new/);
-  assert.match(calls.opened[0], /labels=feedback/);
+  assert.match(calls.opened[0], /file-type-support/);
+  assert.match(calls.opened[0], /File\+type\+support\+request/);
+});
+
+test('_showFeedbackPromptNow opens workflow adaptation issue URL when requested', async () => {
+  const { vscode, calls } = makeVscode();
+  vscode.window.showInformationMessage = (_msg, ...buttons) => {
+    calls.infos.push({ buttons });
+    return Promise.resolve('Adapt workflow');
+  };
+  const ext = loadExtensionWith(vscode);
+  await ext._showFeedbackPromptNow();
+  assert.strictEqual(calls.opened.length, 1);
+  assert.match(calls.opened[0], /issues\/new/);
+  assert.match(calls.opened[0], /workflow-adaptation/);
+  assert.match(calls.opened[0], /Workflow\+adaptation\+request/);
+});
+
+test('request commands open prefilled GitHub issues', async () => {
+  const { vscode, calls } = makeVscode();
+  const ext = loadExtensionWith(vscode);
+  ext.activate({ subscriptions: [] });
+
+  await calls.commands['exactFilePreview.requestFileTypeSupport']();
+  await calls.commands['exactFilePreview.requestWorkflowAdaptation']();
+
+  assert.strictEqual(calls.opened.length, 2);
+  assert.match(calls.opened[0], /labels=enhancement%2Cfile-type-support/);
+  assert.match(calls.opened[0], /File\+extension\+or\+format/);
+  assert.match(calls.opened[1], /labels=commercial%2Cworkflow-adaptation/);
+  assert.match(calls.opened[1], /Team\+or\+workflow\+size/);
 });
